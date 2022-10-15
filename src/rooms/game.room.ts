@@ -26,9 +26,9 @@ export class GameRoom extends Room<StateHandler> {
     const player = new Player()
     player.name = options.name
     player.skin = options.skin
-    player.position.x = Math.random()
-    player.position.y = Math.random()
-    player.position.z = Math.random()
+    player.position.x = Math.random() * 10
+    player.position.y = Math.random() * 10
+    player.position.z = Math.random() * 10
 
     this.state.players.set(client.sessionId, player)
   }
