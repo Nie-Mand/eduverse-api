@@ -11,7 +11,7 @@ export class GameRoom extends Room<StateHandler> {
   maxClients = 8
 
   onCreate() {
-    this.setSimulationInterval(() => this.onUpdate())
+    // this.setSimulationInterval(() => this.onUpdate())
     this.setState(new StateHandler())
 
     this.onMessage('key', (client, message) => {
