@@ -2,10 +2,15 @@ import { Room, Client } from 'colyseus'
 import { StateHandler } from '../core'
 import { Player } from '../schemas/player.schema'
 
+interface PlayerData {
+  name: string
+  skin: string
+}
+
 export class GameRoom extends Room<StateHandler> {
   maxClients = 8
 
-  onCreate() {
+  onCreate(options: any) {
     this.setSimulationInterval(() => this.onUpdate())
     this.setState(new StateHandler())
 
@@ -16,9 +21,11 @@ export class GameRoom extends Room<StateHandler> {
     })
   }
 
-  onJoin(client: any) {
+  onJoin(client: any, options: PlayerData) {
+    if (!options.name || !options.skin) return
     const player = new Player()
-    player.name = `Player ${this.clients.length}`
+    player.name = options.name
+    player.skin = options.skin
     player.position.x = Math.random()
     player.position.y = Math.random()
     player.position.z = Math.random()
