@@ -10,7 +10,7 @@ interface PlayerData {
 export class GameRoom extends Room<StateHandler> {
   maxClients = 8
 
-  onCreate(options: any) {
+  onCreate() {
     this.setSimulationInterval(() => this.onUpdate())
     this.setState(new StateHandler())
 
@@ -41,7 +41,9 @@ export class GameRoom extends Room<StateHandler> {
   }
 
   onLeave(client: Client) {
-    this.state.players.delete(client.sessionId)
+    if (this.state.players.has(client.sessionId)) {
+      this.state.players.delete(client.sessionId)
+    }
   }
 
   onDispose() {}
