@@ -33,11 +33,13 @@ export class GameRoom extends Room<StateHandler> {
     this.state.players.set(client.sessionId, player)
   }
 
-  onUpdate() {
-    this.state.players.forEach(player => {
-      player.position.x += player.pressedKeys.x * 0.1
-      player.position.z -= player.pressedKeys.y * 0.1
-    })
+  onUpdate(client: any, options: any) {
+    if (this.state.players.has(client.sessionId)) {
+      const player = this.state.players.get(client.sessionId)
+      if (!player) return
+      player.position.x += player.pressedKeys.x
+      player.position.y += player.pressedKeys.y
+    }
   }
 
   onLeave(client: Client) {
